@@ -10,9 +10,15 @@ import java.util.List;
  */
 
 public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
+
+    /** Query URL */
+    private String mUrl;
+
     public EarthquakeLoader(Context context, String url) {
         super(context);
-        // TODO: Finish implementing this constructor
+        mUrl = url;
+
+
     }
 
     @Override
@@ -22,6 +28,12 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
 
     @Override
     public List<Earthquake> loadInBackground() {
-        // TODO: Implement this method
+        if (mUrl == null) {
+            return null;
+        }
+
+        // Perform the network request, parse the response, and extract a list of earthquakes.
+        List<Earthquake> earthquakes = QueryUtils.extractEarthquakes(mUrl);
+        return earthquakes;
     }
 }
